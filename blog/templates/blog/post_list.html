@@ -8,18 +8,12 @@
     <div>
         <h1><a href="/">Dmytro Lytvynenko Blog</a></h1>
     </div>
-
+    {% for post in posts %}
     <div>
-        <h2><a href="">Lorem ipsum dolor sit amet, consectetur adipisicing.</a></h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium asperiores assumenda atque autem consequatur deleniti, dicta, dolorum ducimus ea enim eos esse ex exercitationem explicabo facere fuga in ipsa labore laudantium maiores maxime minima modi nam nemo neque pariatur placeat possimus praesentium provident quidem quis recusandae sed tenetur. Amet, quidem?
-        </p>
-        <p>published:</p>
+        <h2><a href="">{{post.title}}</a></h2>
+        <p>{{post.text}}</p>
+        <p>published: {{post.published_date}}</p>
     </div>
-    <div>
-        <h2><a href="">Lorem ipsum dolor sit amet, consectetur adipisicing.</a></h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquam, blanditiis consequatur culpa cumque dolor dolores esse eum eveniet labore laboriosam minima minus necessitatibus praesentium qui quisquam quod rem similique sunt voluptate. Aliquam aliquid aspernatur assumenda, at cumque delectus eaque eos expedita hic, necessitatibus, nesciunt obcaecati quia sequi vel voluptate?
-        </p>
-        <p>published:</p>
-    </div>
+    {% endfor %}
 </body>
 </html>
