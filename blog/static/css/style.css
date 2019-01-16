@@ -1,9 +1,14 @@
 h1 a {
     font-family: 'Volkorn';
 }
+.blog_post{
+    display: block;
+    max-width: 720px;
+}
 a{
     font-family: 'Volkorn';
 }
+
 p{
     font-family: 'Roboto';
 }
