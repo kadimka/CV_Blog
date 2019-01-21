@@ -17,4 +17,7 @@ urlpatterns = [
     url('post/(?P<pk>\d+)/remove/', views.post_remove, name='post_remove'),
     url('accounts/login/', dviews.LoginView.as_view(), name='login'),
     url('accounts/logout/', dviews.LogoutView.as_view(next_page='/'), name='logout'),
+    url('post/(?P<pk>\d+)/comment/', views.add_comment_to_post, name='add_comment_to_post'),
+    url('comment/(?P<pk>\d+)/approve/', views.comment_approve, name='comment_approve'),
+    url('comment/(?P<pk>\d+)/remove/', views.comment_remove, name='comment_remove'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
