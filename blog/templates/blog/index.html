@@ -36,7 +36,7 @@
     {% for post in posts %}
     <div class="blog_post" style="width: 720px;">
         <h2><a href="{% url 'post_detail' pk=post.pk %}">{{post.title}}</a></h2>
-        <img src="{{post.image.url}}" alt="{{post.title}}" style="height: 360px; width: 100%;">
+        <img src="{{post.image.url}}" alt="{{post.title}}" >
         <p>{{post.text}}</p>
         <a href="{% url 'post_detail' pk=post.pk %}">Comments: {{ post.approved_comments.count }}</a>
         <p>published: {{post.published_date}}</p>

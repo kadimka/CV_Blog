@@ -17,6 +17,9 @@
     max-width: 720px;
     margin: 0 auto;
 }
+.blog_post img{
+    width: 100%;
+}
 a{
     font-family: 'Volkorn';
 }
@@ -28,12 +31,21 @@ p{
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
-
+    .blog_post{
+        display: block;
+        max-width: 100%;
+        height: auto;
+        margin: 0 auto;
+    }
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
-
+    .blog_post{
+        display: block;
+        max-width: 100%;
+        margin: 0 auto;
+    }
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
