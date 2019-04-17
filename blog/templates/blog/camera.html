@@ -17,31 +17,20 @@
 <body>
 <video id="video" autoplay></video>
 <script>
-        navigator.getUserMedia = navigator.getUserMedia ||
-                         navigator.webkitGetUserMedia ||
-                         navigator.mozGetUserMedia;
 
-if (navigator.getUserMedia) {
-   navigator.mediaDevices.getUserMedia({ audio: false, video: {
-    width: { ideal: 1280 },
-    height: { ideal: 720 },
-    facingMode: "user"
-  } },
-      function(stream) {
-         var video = document.querySelector('video');
-         video.srcObject = stream;
-         video.onloadedmetadata = function(e) {
-           video.play();
-         };
-      },
-      function(err) {
-         console.log("The following error occurred: " + err.name);
-      }
-   );
-} else {
-   console.log("getUserMedia not supported");
+const video = document.getElementById('video')
+
+function startup(){
+    navigator.mediaDevices.getUserMedia({
+    audio: false,
+    video: true,
+    }).then(stream => {
+        video.srcObject = stream
+    }).catch(console.error)
 }
-    </script>
+window.addEventListener('load', startup, false)
+
+</script>
 
 
 </body>
