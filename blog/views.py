@@ -1,26 +1,31 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Post, Comment
+from .models import Post, Comment, Task
 from django.utils import timezone
-from .forms import PostForm, CommentForm
+from .forms import PostForm, CommentForm, TaskForm
 from  django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
+
 def index(request):
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
     return render(request, 'blog/index.html', {'posts':posts})
+
 
 def post_list(request):
     posts=Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
     return render(request, 'blog/post_list.html', {'posts':posts})
 
+
 def resume(request):
     return render(request, 'blog/resume.html', {})
+
 
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
     return render(request, 'blog/post_detail.html', {'post':post})
+
 
 @login_required
 def post_new(request):
@@ -36,6 +41,7 @@ def post_new(request):
         form = PostForm()
         return render(request, 'blog/post_edit.html', {'form':form})
 
+
 @login_required
 def post_edit(request, pk):
     post = get_object_or_404(Post, pk=pk)
@@ -50,10 +56,12 @@ def post_edit(request, pk):
         form = PostForm(instance=post)
     return render(request, 'blog/post_edit.html', {'form':form})
 
+
 @login_required
 def post_draft_list(request):
     posts = Post.objects.filter(published_date__isnull=True).order_by('created_date')
     return render(request, 'blog/post_draft_list.html', {'posts': posts})
+
 
 @login_required
 def post_publish(request, pk):
@@ -61,11 +69,13 @@ def post_publish(request, pk):
     post.publish()
     return redirect('post_detail', pk=pk)
 
+
 @login_required
 def post_remove(request, pk):
     post = get_object_or_404(Post, pk=pk)
     post.delete()
     return redirect('/')
+
 
 def add_comment_to_post(request, pk):
     post = get_object_or_404(Post, pk=pk)
@@ -80,11 +90,13 @@ def add_comment_to_post(request, pk):
         form = CommentForm()
     return render(request, 'blog/add_comment_to_post.html', {'form': form})
 
+
 @login_required
 def comment_approve(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
     comment.approve()
     return redirect('post_detail', pk=comment.post.pk)
+
 
 @login_required
 def comment_remove(request, pk):
@@ -92,3 +104,32 @@ def comment_remove(request, pk):
     comment.delete()
     return redirect('post_detail', pk=comment.post.pk)
 
+
+@login_required
+def task_board(request):
+    if request.method == "POST":
+        id = request.POST.get('id')
+        task = get_object_or_404(Task, id=id)
+        if task.task_progress == 'Plan':
+            task.task_progress = 'Task'
+            task.save()
+        elif task.task_progress == 'Task':
+            task.task_progress = 'Process'
+            task.user = request.user
+            task.save()
+        else:
+            task.task_progress = 'Done'
+            task.save()
+        return redirect('scrum')
+    else:
+        plan = Task.objects.filter(task_progress='Plan')
+        task = Task.objects.filter(task_progress='Task')
+        progress = Task.objects.filter(task_progress='Process')
+        done = Task.objects.filter(task_progress='Done')
+        return render(request, 'blog/scrum.html',
+                      {'plans': plan, 'tasks': task, 'progress': progress, 'done': done})
+
+
+def camera(request):
+
+    return render(request, 'blog/camera.html')

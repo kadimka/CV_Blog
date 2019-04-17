@@ -1,0 +1,64 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+
+    <table style="width:100%">
+  <tr>
+    <th>Plans</th>
+    <th>Task</th>
+    <th>Process</th>
+    <th>Done</th>
+  </tr>
+
+    <td>
+        {% for plan in plans %}
+        <p>
+            {{plan.task_name}}
+        <form action="" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="id" value="{{plan.id}}">
+        <input type="submit" value="->">
+        </form>
+        </p>
+        {% endfor %}
+    </td>
+    <td>
+         {% for task in tasks %}
+            <p>
+            {{task.task_name}}
+                <form action="" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="id" value="{{task.id}}">
+        <input type="submit" value="->">
+        </form>
+            </p>
+
+         {% endfor %}
+    </td>
+      <td>
+         {% for prog in progress %}
+            <p>
+            {{prog.task_name}}
+            {{prog.user}}
+                <form action="" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="id" value="{{prog.id}}">
+        <input type="submit" value="->">
+        </form>
+            </p>
+        {% endfor %}
+    </td>
+       <td>
+         {% for d in done %}
+            <p>
+            {{d.task_name}}
+            {{d.user}}
+            </p>
+        {% endfor %}
+    </td>
+
+
+</table>
+
+
+
+{% endblock %}

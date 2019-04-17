@@ -21,4 +21,6 @@ urlpatterns = [
     url('post/(?P<pk>\d+)/comment/', views.add_comment_to_post, name='add_comment_to_post'),
     url('comment/(?P<pk>\d+)/approve/', views.comment_approve, name='comment_approve'),
     url('comment/(?P<pk>\d+)/remove/', views.comment_remove, name='comment_remove'),
+    url('camera/', views.camera, name='camera'),
+    url('scrum/', views.task_board, name='scrum'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -35,5 +35,21 @@ class Comment(models.Model):
         return self.text
 
 
+class Task(models.Model):
+    progress = (
+        ('Plan', 'Plan'),
+        ('Task', 'Task'),
+        ('Process', 'Process'),
+        ('Done', 'Done'),
+    )
+
+    task_name = models.CharField(max_length=300)
+    task_progress = models.CharField(max_length=100, choices=progress, default='Plan')
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE, blank=True, null=True)
+
+    def __str__(self):
+        return self.task_name
+
+
 
 # Create your models here.
